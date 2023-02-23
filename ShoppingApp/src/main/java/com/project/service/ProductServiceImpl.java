@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public String updateProduct(Product product) {
+	public String updateProduct(Product product){
 
 		productRepository.saveAndFlush(product);
 		
