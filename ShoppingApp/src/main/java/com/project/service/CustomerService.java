@@ -1,22 +1,30 @@
+
 package com.project.service;
+
+import com.project.exceptions.AdminException;
+import com.project.exceptions.CustomerException;
+import com.project.exceptions.LoginException;
+import com.project.model.Customer;
 
 import java.util.List;
 
-import com.project.model.Customer;
-import com.project.model.User;
 
-import jakarta.validation.Valid;
+/**
+ * @author sheetalbisht
+ *
+ */
 
 public interface CustomerService {
 
-	Customer addCustomer(@Valid Customer customer);
+	public Customer addCustomer(Customer customer) throws CustomerException;
 
-	Customer updateCustomer(String key, @Valid Customer customer);
+	public Customer updateCustomer(String key, Customer customer) throws CustomerException, LoginException;
 
-	Customer viewCustomer(String key, @Valid Integer customer_Id);
+	public String removeCustomer(String key, Integer customer_Id) throws CustomerException, LoginException;
 
-	List<Customer> viewAllCustomers(String key);
+	public Customer viewCustomer(String key, Integer customer_Id) throws CustomerException, LoginException;
 
-	String removeCustomer(String key, @Valid User user);
+	// Check for Admin Role
+	public List<Customer> viewAllCustomers(String key) throws AdminException, LoginException, CustomerException;
 
 }
