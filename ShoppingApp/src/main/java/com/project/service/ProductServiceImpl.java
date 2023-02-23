@@ -20,11 +20,11 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 	
 	@Override
-	public String saveProduct(Product product) {
+	public Product saveProduct(Product product) {
 
 		productRepository.saveAndFlush(product);
 		
-        return "Product Added Sucessfully"+product.getProductName();
+        return product;
 	}
 
 	@Override
@@ -51,13 +51,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public Optional<Product> findProductById(Integer productId) {
+	public Product findProductById(Integer productId) {
 
-		Optional<Product> product = productRepository.findById(productId);
+		Product product = productRepository.findById(productId).orElseThrow(() -> new ProductException("No product found"));
 		
-        if (product.isEmpty()) {
-        	throw new ProductException("No product found for this id");
-        }
+        
 
         return product;
 	}
@@ -75,11 +73,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public String updateProduct(Product product){
+	public Product updateProduct(Product product){
 
 		productRepository.saveAndFlush(product);
 		
-        return "Product Updated Sucessfully";
+        return product;
 	}
 
 	@Override
