@@ -11,7 +11,7 @@ public interface CategoryService {
 
     public List<Category> findAllCategories();
 
-    public Optional<Category> findCategoryById(Integer categoryId);
+    public Category findCategoryById(Integer categoryId);
 
     public String deleteCategory(Integer categoryId);
 

@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.project.exceptions.CategoryException;
 import com.project.exceptions.ProductException;
 import com.project.model.Category;
 import com.project.repository.CategoryRepository;
 
+
+@Service
 public class CategoryServiceImpl implements CategoryService{
 	
 	@Autowired
@@ -36,14 +39,10 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public Optional<Category> findCategoryById(Integer categoryId) {
+	public Category findCategoryById(Integer categoryId) {
 		
 
-		Optional<Category> category = categoryRepository.findById(categoryId);
-		
-        if (category.isEmpty()) {
-        	throw new ProductException("No category found for this id");
-        }
+		Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryException("No category found"));
 
         return category;
 	}
