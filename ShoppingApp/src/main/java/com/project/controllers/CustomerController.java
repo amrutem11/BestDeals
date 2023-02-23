@@ -5,9 +5,14 @@ package com.project.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
+import com.project.exceptions.AdminException;
+import com.project.exceptions.CustomerException;
+import com.project.exceptions.LoginException;
+import com.project.exceptions.UserException;
 import com.project.model.Customer;
+import com.project.model.User;
+import com.project.service.CustomerService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
