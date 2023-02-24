@@ -71,13 +71,13 @@ public class CustomerController {
     }
 
     // Check for Admin Role
-    @GetMapping("/allCustomers")
-    public ResponseEntity<List<Customer>> viewAllCustomersHandler(@RequestParam String key)
-            throws CustomerException, LoginException, AdminException {
-
-        List<Customer> listofcustomers = customerService.viewAllCustomers(key);
-
-        return new ResponseEntity<List<Customer>>(listofcustomers, HttpStatus.OK);
-    }
+//    @GetMapping("/allCustomers")
+//    public ResponseEntity<List<Customer>> viewAllCustomersHandler(@RequestParam String key)
+//            throws CustomerException, LoginException, AdminException {
+//
+//        List<Customer> listofcustomers = customerService.viewAllCustomers(key);
+//
+//        return new ResponseEntity<List<Customer>>(listofcustomers, HttpStatus.OK);
+//    }
 
 }
