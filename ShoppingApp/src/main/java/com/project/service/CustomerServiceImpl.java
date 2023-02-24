@@ -2,16 +2,16 @@ package com.project.service;
 
 
 import com.project.exceptions.CustomerException;
+import com.project.model.Cart;
 import com.project.model.Customer;
+import com.project.model.User;
 import com.project.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 import java.util.Optional;
 
-import com.project.exceptions.AdminException;
 import com.project.exceptions.LoginException;
-import com.project.exceptions.UserException;
 
 
 @Service
@@ -20,14 +20,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepo customerRepo;
 
-//    @Autowired
-//    private LoginLogoutCustomerServiceImplementation loginLogoutCustomerServiceimplementation;
-//
-//    @Autowired
-//    private LoginLogoutAdminServiceImplementation loginLogoutAdminServiceimplementation;
-
     @Autowired
-    private CartRepo cartRepo;
+    private LoginLogoutCustomerServiceImplementation loginLogoutCustomerServiceimplementation;
+
+
+
+//    @Autowired
+//    private CartRepo cartRepo;
 
     @Override
     public Customer addCustomer(Customer customer) throws CustomerException {
@@ -40,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (added_customer != null) {
 
-            cartRepo.save(cart);
+//            cartRepo.save(cart);
 
             return added_customer;
 
@@ -48,6 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException("OOps, Sign Up Unsuccessfull !");
         }
     }
+
 
     @Override
     public Customer updateCustomer(String key, Customer customer) throws CustomerException, LoginException {
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public String removeCustomer(String key, Integer customer_Id) throws CustomerException, LoginException {
+    public String removeCustomer(String key, User user) throws CustomerException, LoginException {
         User validate_user = loginLogoutCustomerServiceimplementation.authenticateCustomer(user, key);
 
         if (validate_user != null) {
@@ -86,7 +86,6 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException("Invalid Login Id or Password !");
         }
     }
-
 
 
     @Override
@@ -111,24 +110,4 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    @Override
-    public List<Customer> viewAllCustomers(String key) throws AdminException, CustomerException, LoginException {
-
-        Admin validate_admin = loginLogoutAdminServiceimplementation.validateAdmin(key);
-
-        if (validate_admin != null) {
-
-            List<Customer> listofcustomers = customerRepo.findAll();
-
-            if (listofcustomers.isEmpty()) {
-                throw new CustomerException("No Customers Available in the Database!");
-            } else {
-                return listofcustomers;
-            }
-
-        } else {
-            throw new AdminException("Invalid Key, Please Login In as Admin!");
-        }
-
-    }}
-
+}
