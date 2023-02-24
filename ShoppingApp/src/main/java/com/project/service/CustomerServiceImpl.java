@@ -4,8 +4,14 @@ package com.project.service;
 import com.project.exceptions.CustomerException;
 import com.project.model.Cart;
 import com.project.model.Customer;
+
+import com.project.model.Role;
 import com.project.model.User;
+import com.project.repository.CartRepo;
+
 import com.project.repository.CustomerRepo;
+import com.project.repository.LoginLogoutRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +27,14 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepo customerRepo;
 
     @Autowired
+    private LoginLogoutRepo UserRepo;
+    
+    
+//
+//    @Autowired
+//    private LoginLogoutAdminServiceImplementation loginLogoutAdminServiceimplementation;
+
+    @Autowired
     private LoginLogoutCustomerServiceImplementation loginLogoutCustomerServiceimplementation;
 
 
@@ -30,22 +44,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) throws CustomerException {
+Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.getMobileNumber());
+		if(existingCustomer.isEmpty()) 
+			throw new CustomerException("Customer Already Registered with Mobile number");
+			
+		User newUser=new User(customer.getMobileNumber(),customer.getPassword(),Role.Customer);
+		UserRepo.save(newUser);
+			return customerRepo.save(customer);
 
-        Cart cart = new Cart();
-
-        cart.setCustomer(customer);
-
-        Customer added_customer = customerRepo.save(customer);
-
-        if (added_customer != null) {
-
-//            cartRepo.save(cart);
-
-            return added_customer;
-
-        } else {
-            throw new CustomerException("OOps, Sign Up Unsuccessfull !");
-        }
     }
 
 
