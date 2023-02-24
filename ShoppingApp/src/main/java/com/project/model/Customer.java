@@ -23,7 +23,8 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
     @Id
