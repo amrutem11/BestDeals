@@ -15,10 +15,7 @@ package com.project.service;
 
 
 
-/**
- * @author sheetalbisht
- *
- */
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
