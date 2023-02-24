@@ -10,21 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.project.exceptions.AdminException;
-import com.project.exceptions.CustomerException;
 import com.project.exceptions.LoginException;
 import com.project.exceptions.UserException;
-import com.project.model.Customer;
-import com.project.repository.CustomerRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-@Service
-public class CustomerServiceImpl {
-
-
-
-
 
 
 @Service
@@ -79,12 +66,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String removeCustomer(String key, Integer customer_Id) throws CustomerException, LoginException {
-        return null;
-    }
-
-    @Override
-    public String removeCustomer(String key, User user) throws CustomerException, LoginException, UserException {
-
         User validate_user = loginLogoutCustomerServiceimplementation.authenticateCustomer(user, key);
 
         if (validate_user != null) {
@@ -104,8 +85,9 @@ public class CustomerServiceImpl implements CustomerService {
         } else {
             throw new CustomerException("Invalid Login Id or Password !");
         }
-
     }
+
+
 
     @Override
     public Customer viewCustomer(String key, Integer customer_Id) throws CustomerException, LoginException {
@@ -148,6 +130,5 @@ public class CustomerServiceImpl implements CustomerService {
             throw new AdminException("Invalid Key, Please Login In as Admin!");
         }
 
-    }
+    }}
 
-}

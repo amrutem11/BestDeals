@@ -3,17 +3,15 @@
  */
 package com.project.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author sheetalbisht
@@ -21,7 +19,10 @@ import lombok.NoArgsConstructor;
  */
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Customer {
 
@@ -61,6 +62,7 @@ public class Customer {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Order> listOfOrders = new ArrayList<>();
 
     /**
@@ -79,4 +81,16 @@ public class Customer {
         this.listOfOrders = listOfOrders;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Customer customer = (Customer) o;
+        return customerId != null && Objects.equals(customerId, customer.customerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
