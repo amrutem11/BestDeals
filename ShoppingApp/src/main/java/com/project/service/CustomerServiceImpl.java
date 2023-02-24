@@ -21,10 +21,7 @@ public class CustomerServiceImpl {
 
 
 
-/**
- * @author sheetalbisht
- *
- */
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 

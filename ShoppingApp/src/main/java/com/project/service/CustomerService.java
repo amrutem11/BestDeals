@@ -9,10 +9,7 @@ import com.project.model.Customer;
 import java.util.List;
 
 
-/**
- * @author sheetalbisht
- *
- */
+
 
 public interface CustomerService {
 
