@@ -1,18 +1,14 @@
-/**
- *
- */
-package com.project.controllers;
+package com.project.controller;
 
 import java.util.List;
+
 
 import com.project.exceptions.AdminException;
 import com.project.exceptions.CustomerException;
 import com.project.exceptions.LoginException;
 import com.project.exceptions.UserException;
 import com.project.model.Customer;
-import com.project.model.User;
 import com.project.service.CustomerService;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 /**
  * @author sheetalbisht
-
+ *
  */
 
 @RestController
@@ -88,3 +83,4 @@ public class CustomerController {
     }
 
 }
+
