@@ -19,11 +19,10 @@ import java.util.Objects;
  */
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Customer {
 
     @Id

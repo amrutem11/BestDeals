@@ -3,6 +3,7 @@ package com.project.service;
 
 import com.project.exceptions.CustomerException;
 import com.project.model.Customer;
+import com.project.repository.CartRepo;
 import com.project.repository.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
