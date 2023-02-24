@@ -1,23 +1,28 @@
 package com.project.service;
 
 
+import com.project.exceptions.CustomerException;
+import com.project.model.Customer;
+import com.project.repository.CustomerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+import com.project.exceptions.AdminException;
+import com.project.exceptions.CustomerException;
+import com.project.exceptions.LoginException;
+import com.project.exceptions.UserException;
+import com.project.model.Customer;
+import com.project.repository.CustomerRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class CustomerServiceImpl {
 
 
-        import java.util.List;
-        import java.util.Optional;
-
-        import com.project.exceptions.AdminException;
-        import com.project.exceptions.CustomerException;
-        import com.project.exceptions.LoginException;
-        import com.project.exceptions.UserException;
-        import com.project.model.Customer;
-        import com.project.repository.CustomerRepo;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.stereotype.Service;
 
 
 

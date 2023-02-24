@@ -1,34 +1,30 @@
+package com.project.controller;
+        import java.util.List;
+        import com.project.exceptions.AdminException;
+        import com.project.exceptions.CustomerException;
+        import com.project.exceptions.LoginException;
+        import com.project.exceptions.UserException;
+        import com.project.model.Customer;
+        import com.project.model.User;
+        import com.project.service.CustomerService;
+        import jakarta.validation.Valid;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.HttpStatus;
+        import org.springframework.http.ResponseEntity;
+        import org.springframework.web.bind.annotation.DeleteMapping;
+        import org.springframework.web.bind.annotation.GetMapping;
+        import org.springframework.web.bind.annotation.PostMapping;
+        import org.springframework.web.bind.annotation.PutMapping;
+        import org.springframework.web.bind.annotation.RequestBody;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RequestParam;
+        import org.springframework.web.bind.annotation.RestController;
+
+
 /**
+ * @author sheetalbisht
  *
  */
-package com.project.controllers;
-
-import java.util.List;
-
-import com.project.exceptions.AdminException;
-import com.project.exceptions.CustomerException;
-import com.project.exceptions.LoginException;
-import com.project.exceptions.UserException;
-import com.project.model.Customer;
-import com.project.model.User;
-import com.project.service.CustomerService;
-
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-
-
-
 
 @RestController
 @RequestMapping("/customer")
