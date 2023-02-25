@@ -40,7 +40,7 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
     public CurrentCustomerSession loginCustomer(User user) throws LoginException, CustomerException {
         if ("Customer".equals(user.getRole())) {
 
-            Optional<Customer> optional_customer = customerRepo.findByMobileNumber(user.getId());
+            Optional<Customer> optional_customer = customerRepo.findByMobileNumber(user.getMobileNo());
 
             if (optional_customer.isPresent()) {
 
@@ -55,7 +55,7 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
                             "User Already Logged In With This Customer Id : " + customer.getCustomerId());
                 } else {
 
-                    if (user.getId().equals(customer.getMobileNumber())
+                    if (user.getMobileNo().equals(customer.getMobileNumber())
                             && user.getPassword().equals(customer.getPassword())) {
 
                         CurrentCustomerSession currentCustomerSession = new CurrentCustomerSession();
@@ -74,7 +74,7 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
                 }
 
             } else {
-                throw new CustomerException("No Registered Customer Found With This User_Id : " + user.getId());
+                throw new CustomerException("No Registered Customer Found With This User_Id : " + user.getMobileNo());
             }
 
         } else {
@@ -113,7 +113,7 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
 
                 Customer customer = optional_customer.get();
 
-                if (customer.getMobileNumber().equals(user.getId())
+                if (customer.getMobileNumber().equals(user.getMobileNo())
                         && customer.getPassword().equals(user.getPassword())) {
 
                     return user;
