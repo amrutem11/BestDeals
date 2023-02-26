@@ -76,7 +76,7 @@ Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.ge
 
         if (validate_user != null) {
 
-            Optional<Customer> optionalcustomer = customerRepo.findByMobileNumber(user.getId());
+            Optional<Customer> optionalcustomer = customerRepo.findByMobileNumber(user.getMobileNo());
 
             if (optionalcustomer.isPresent()) {
 
@@ -85,7 +85,7 @@ Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.ge
                 return "Customer Deleted Successfully !";
 
             } else {
-                throw new CustomerException("No Registered Customer Found With This Mobile Number : " + user.getId());
+                throw new CustomerException("No Registered Customer Found With This Mobile Number : " + user.getMobileNo());
             }
 
         } else {
