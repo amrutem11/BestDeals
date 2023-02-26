@@ -1,6 +1,4 @@
-/**
- *
- */
+
 package com.project.service;
 
 import java.util.Optional;
@@ -11,7 +9,6 @@ import com.project.model.CurrentCustomerSession;
 import com.project.model.Customer;
 import com.project.repository.CurrentCustomerSessionRepo;
 import com.project.repository.CustomerRepo;
-import com.project.service.CurrentCustomerSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
