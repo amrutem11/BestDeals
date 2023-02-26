@@ -80,17 +80,15 @@ public class ProductServiceImpl implements ProductService{
         return product;
 	}
 
-	@Override
-	public List<Product> findProductByCategoryId(Integer categoryId) {
-
-		List<Product> products = productRepository.findProductByCategoryId(categoryId);
-		
-       if(products.size()==0) {
-    	   throw new ProductException("No product found for this category id");
-       }
-        return products;
-	}
-
-	
+//	@Override
+//	public List<Product> findProductByCategoryId(Integer categoryId) {
+//
+////		List<Product> products = productRepository.findProductByCategoryId(categoryId);
+//
+////       if(products.size()==0) {
+////    	   throw new ProductException("No product found for this category id");
+////       }
+////        return products;
+////	}
 
 }

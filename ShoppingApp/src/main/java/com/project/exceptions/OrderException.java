@@ -1,5 +1,6 @@
 package com.project.exceptions;
 
+
 public class OrderException extends RuntimeException{
 
 	public OrderException() {
@@ -11,4 +12,5 @@ public class OrderException extends RuntimeException{
 		super(message);
 	}
 	
+
 }

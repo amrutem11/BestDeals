@@ -44,11 +44,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) throws CustomerException {
-Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.getMobileNumber());
+    	
+    	Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.getMobileNumber());
 		if(existingCustomer.isEmpty()) 
 			throw new CustomerException("Customer Already Registered with Mobile number");
 			
-		User newUser=new User(customer.getMobileNumber(),customer.getPassword(),Role.Customer);
+		User newUser = new User(customer.getCustomerId(),customer.getMobileNumber(),customer.getPassword(),Role.Customer);
 		UserRepo.save(newUser);
 			return customerRepo.save(customer);
 

@@ -20,7 +20,7 @@ public interface ProductService {
 
     public Product updateProduct(Product product);
 
-    public List<Product> findProductByCategoryId(Integer categoryId);
+//    public List<Product> findProductByCategoryId(Integer categoryId);
 
     
 }

@@ -20,8 +20,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Orders")
 public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private Integer orderId;
     private LocalDate localDate;
     private String status;

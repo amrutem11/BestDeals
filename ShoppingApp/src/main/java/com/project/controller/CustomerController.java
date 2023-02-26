@@ -58,7 +58,6 @@ public class CustomerController {
         String result = customerService.removeCustomer(key, user);
 
         return new ResponseEntity<String>(result, HttpStatus.OK);
-
     }
 
     @GetMapping("/viewCustomer")
@@ -70,14 +69,6 @@ public class CustomerController {
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     }
 
-    // Check for Admin Role
-//    @GetMapping("/allCustomers")
-//    public ResponseEntity<List<Customer>> viewAllCustomersHandler(@RequestParam String key)
-//            throws CustomerException, LoginException, AdminException {
-//
-//        List<Customer> listofcustomers = customerService.viewAllCustomers(key);
-//
-//        return new ResponseEntity<List<Customer>>(listofcustomers, HttpStatus.OK);
-//    }
+//    http://localhost:8088/customer/viewCustomer
 
 }
