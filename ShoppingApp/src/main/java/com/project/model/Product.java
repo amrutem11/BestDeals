@@ -122,5 +122,10 @@ public class Product {
 	@Column(name = "manufacturer")
 	@NotBlank(message = "Please Enter manufacturer")
 	private String manufacturer;
+
+	public Double getPrice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
