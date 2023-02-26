@@ -3,9 +3,9 @@ package com.project.service;
  *
  */
 
+import com.project.model.CurrentCustomerSession;
 import com.project.exceptions.CurrentCustomerSessionException;
 import com.project.exceptions.CustomerException;
-import com.project.model.CurrentCustomerSession;
 import com.project.model.Customer;
 
 public interface CurrentCustomerSessionService {

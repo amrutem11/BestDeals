@@ -3,14 +3,23 @@ package com.project.model;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.project.dto.AddressDto;
+import com.project.dto.ProductDto;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +27,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Orders")
 public class Order {
 
 
@@ -26,11 +34,19 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private Integer orderId;
-    private LocalDate localDate;
+    private LocalDate orderDate;
     private String status;
+    private Double total;
     
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "customer_order",joinColumns = @JoinColumn(name="order_id", referencedColumnName = "orderId"))
     private Customer customers;   
+    
+    @ElementCollection
+	@CollectionTable(name="ordered_Product", joinColumns = @JoinColumn(name="order_id", referencedColumnName = "orderId"))
+	private List<ProductDto> pList = new ArrayList<>();
+	
+	@Embedded
+	private AddressDto orderAddress;
 	
 }

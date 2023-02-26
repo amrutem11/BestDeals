@@ -8,13 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import lombok.Value;
 
 @Data
 @NoArgsConstructor
@@ -23,70 +22,7 @@ import lombok.Value;
 @Entity
 
 public class Product {
-	
-	public int getProductId() {
-		return productId;
-	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getDimension() {
-		return dimension;
-	}
-
-	public void setDimension(String dimension) {
-		this.dimension = dimension;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,7 +45,8 @@ public class Product {
 	@ManyToOne
     @JsonIgnore
     private Category category;
-	
+	@Min(value = 1, message = "Please Enter a valid price")
+	private Double price;
 	
 	@Column(name = "color")
 	@NotBlank(message = "Please enter the color")
@@ -122,10 +59,4 @@ public class Product {
 	@Column(name = "manufacturer")
 	@NotBlank(message = "Please Enter manufacturer")
 	private String manufacturer;
-
-	public Double getPrice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

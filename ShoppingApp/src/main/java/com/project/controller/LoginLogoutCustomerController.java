@@ -1,5 +1,6 @@
 package com.project.controller;
 
+
 /**
  *
  */
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/loginlogout")
 public class LoginLogoutCustomerController {
 
     @Autowired
