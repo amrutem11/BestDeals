@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.project.exceptions.OrderException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.project.dto.ProductDto;
 import com.project.exceptions.CartException;
 import com.project.exceptions.LoginException;
-import com.project.exceptions.OrderExcetion;
 import com.project.exceptions.ProductException;
 import com.project.model.Cart;
 import com.project.model.Product;
@@ -126,7 +126,7 @@ public class CartServiceimpl implements CartService {
 
 	@Override
 	public List<ProductDto> removeProductfromCart(Integer productId, String key)
-			throws CartException, LoginException, ProductException {
+			throws CartException, LoginException, ProductException, OrderException {
 		// TODO Auto-generated method stub
     Session currentCustomer = srepo.findByuuid(key);
 		
@@ -157,7 +157,7 @@ public class CartServiceimpl implements CartService {
 			
 			if(customerCart==null)
 			{
-				throw new OrderExcetion("NO order found for this ");
+				throw new OrderException("NO order found for this ");
 			}
 			else
 			{
