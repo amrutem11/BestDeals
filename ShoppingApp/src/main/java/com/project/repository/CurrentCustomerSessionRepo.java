@@ -3,6 +3,7 @@ package com.project.repository;
 import java.util.Optional;
 
 import com.project.model.CurrentCustomerSession;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,6 @@ public interface CurrentCustomerSessionRepo extends JpaRepository<CurrentCustome
     public Optional<CurrentCustomerSession> findByKey(String key);
 
     public Optional<CurrentCustomerSession> findByCustomerId(Integer customerId);
+
+	
 }

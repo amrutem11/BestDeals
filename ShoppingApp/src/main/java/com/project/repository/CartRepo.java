@@ -1,5 +1,7 @@
 package com.project.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,6 +16,6 @@ public Cart findByCustomer(Customer customer) throws CustomerException;
 	
 	
 	@Query("select c from Cart c where c.customer.customerId=?1")
-	public Cart getCart(Integer custId);
+	public Optional<Cart >getCart(Integer custId);
 
 }

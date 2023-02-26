@@ -1,14 +1,12 @@
 
 package com.project.service;
 
-import com.project.exceptions.AdminException;
+
 import com.project.exceptions.CustomerException;
 import com.project.exceptions.LoginException;
-import com.project.exceptions.UserException;
+
 import com.project.model.Customer;
 import com.project.model.User;
-
-import java.util.List;
 
 
 

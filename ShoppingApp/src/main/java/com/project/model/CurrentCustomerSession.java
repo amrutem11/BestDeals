@@ -1,6 +1,4 @@
-package com.project.model; /**
- *
- */
+package com.project.model;
 
 
 import java.time.LocalDateTime;
@@ -28,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class CurrentCustomerSession {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer currentSessionId;
 
 

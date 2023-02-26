@@ -6,16 +6,15 @@ package com.project.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.project.model.CurrentCustomerSession;
 import com.project.exceptions.CustomerException;
 import com.project.exceptions.LoginException;
 import com.project.exceptions.LogoutException;
 import com.project.exceptions.UserException;
-import com.project.model.CurrentCustomerSession;
 import com.project.model.Customer;
 import com.project.model.User;
 import com.project.repository.CurrentCustomerSessionRepo;
 import com.project.repository.CustomerRepo;
-import com.project.service.LoginLogoutCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

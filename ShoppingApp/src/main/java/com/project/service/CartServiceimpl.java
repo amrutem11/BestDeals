@@ -6,21 +6,22 @@ import java.util.Optional;
 
 import com.project.exceptions.OrderException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.project.model.CurrentCustomerSession;
 import com.project.dto.ProductDto;
 import com.project.exceptions.CartException;
 import com.project.exceptions.LoginException;
 import com.project.exceptions.ProductException;
 import com.project.model.Cart;
 import com.project.model.Product;
-import com.project.model.Session;
 import com.project.model.Customer;
 import com.project.repository.CartRepo;
+import com.project.repository.CurrentCustomerSessionRepo;
 import com.project.repository.CustomerRepo;
 import com.project.repository.ProductRepository;
 import com.project.repository.Productdtorepo;
-import com.project.repository.Sessionrepo;
-
+@Service
 public class CartServiceimpl implements CartService {
      
 
@@ -36,7 +37,7 @@ public class CartServiceimpl implements CartService {
 	  private Productdtorepo pto;
 	  
 	  @Autowired
-	  private Sessionrepo srepo;
+	  private CurrentCustomerSessionRepo srepo;
 	  
 	   @Autowired
 	  private CustomerRepo curepo;
@@ -45,10 +46,10 @@ public class CartServiceimpl implements CartService {
 	public Cart addProductToCart(Integer productId, Integer quantity, String key)
 			throws CartException, LoginException, ProductException {
 		// TODO Auto-generated method stub
-		   Session currentCustomer  = srepo.findByuuid(key);
+		Optional<CurrentCustomerSession> currentCustomer  = srepo.findByKey(key);
 		   
-		   if(currentCustomer == null) {
-				throw new LoginException("Please provide a valid key to update a customer");
+		   if(currentCustomer.isEmpty()) {
+				throw new LoginException("Please Login First ");
 			}
 		   else {
 			   Optional<Product> optProduct = prorepo.findById(productId) ;
@@ -57,7 +58,7 @@ public class CartServiceimpl implements CartService {
 					throw new ProductException("No product available with id :"+ productId) ;
 				}
 			
-			   Optional<Customer> fin = curepo.findById(currentCustomer.getUserId());
+			   Optional<Customer> fin = curepo.findById(currentCustomer.get().getCustomerId());
 			   
 			   Customer or = fin.get();
 				Product currentProduct = optProduct.get();
@@ -66,18 +67,18 @@ public class CartServiceimpl implements CartService {
 					throw new ProductException("Product quantity not available or Out of stock") ;
 				}
 				
-				Cart customerCart = cartrepo.getCart(or.getCustomerId());
+				Optional<Cart> customerCart = cartrepo.getCart(or.getCustomerId());
 				
-                 if(customerCart == null) { // user is adding first time in the cart 
+                 if(customerCart.isEmpty()) { // user is adding first time in the cart 
 					
-					customerCart = new Cart();
+					Cart customerCart2 = new Cart();
 					
 				
-					customerCart.setCustomer(or);
+					customerCart2.setCustomer(or);
 					
-					List<ProductDto> list = customerCart.getProducts();
+					List<ProductDto> list = customerCart2.getProducts();
 					
-					ProductDto productDto = new ProductDto( currentProduct.getProductId(),
+					ProductDto productDto = new ProductDto( 0,currentProduct.getProductId(),
 															currentProduct.getProductName(),
 															currentProduct.getPrice(), 
 															currentProduct.getColor(), 
@@ -90,17 +91,17 @@ public class CartServiceimpl implements CartService {
 					list.add(productDto);
 					
 					
-					cartrepo.save(customerCart) ;
+					cartrepo.save(customerCart2) ;
 					prorepo.save(currentProduct);
 					
-					return customerCart;
+					return customerCart2;
 						
 				}
                  else {
  					
- 					List<ProductDto> list = customerCart.getProducts();
+ 					List<ProductDto> list = customerCart.get().getProducts();
  					
- 					ProductDto productDto = new ProductDto( currentProduct.getProductId(),
+ 					ProductDto productDto = new ProductDto(0, currentProduct.getProductId(),
  															currentProduct.getProductName(),
  															currentProduct.getPrice(), 
  															currentProduct.getColor(), 
@@ -113,10 +114,10 @@ public class CartServiceimpl implements CartService {
  					list.add(productDto);
  					
  					
- 					cartrepo.save(customerCart) ;
+ 					cartrepo.save(customerCart.get()) ;
  					prorepo.save(currentProduct);
  					 
- 					return customerCart;
+ 					return customerCart.get();
  			   
  				}
 		   }
@@ -128,12 +129,11 @@ public class CartServiceimpl implements CartService {
 	public List<ProductDto> removeProductfromCart(Integer productId, String key)
 			throws CartException, LoginException, ProductException, OrderException {
 		// TODO Auto-generated method stub
-    Session currentCustomer = srepo.findByuuid(key);
-		
-		if(currentCustomer==null)
-		{
-			throw new LoginException("You are Not Authorized to Delete the Product");
-		}
+		Optional<CurrentCustomerSession> currentCustomer  = srepo.findByKey(key);
+		   
+		   if(currentCustomer.isEmpty()) {
+				throw new LoginException("Please Login First ");
+			}
           Optional<ProductDto> optProduct = pto.findById(productId) ;
 		
 		if(optProduct.isEmpty()) {
@@ -144,7 +144,7 @@ public class CartServiceimpl implements CartService {
 			//Integer s = currentCustomer.getUserId();
 			
 			
-		 Optional<Customer> fin = curepo.findById(currentCustomer.getUserId());
+		 Optional<Customer> fin = curepo.findById(currentCustomer.get().getCustomerId());
 			
 			
 			Customer or = fin.get();
@@ -152,10 +152,10 @@ public class CartServiceimpl implements CartService {
 			
 			ProductDto currentProduct = optProduct.get();
 			
-			Cart customerCart = cartrepo.getCart(or.getCustomerId());
+			Optional<Cart> customerCart = cartrepo.getCart(or.getCustomerId());
 			
 			
-			if(customerCart==null)
+			if(customerCart.isEmpty())
 			{
 				throw new OrderException("NO order found for this ");
 			}
@@ -163,8 +163,8 @@ public class CartServiceimpl implements CartService {
 			{
 				cartrepo.deleteById(productId);
 				
-				cartrepo.save(customerCart);
-				List<ProductDto> list = customerCart.getProducts();
+				cartrepo.save(customerCart.get());
+				List<ProductDto> list = customerCart.get().getProducts();
 				
 				
 				return list;
@@ -177,13 +177,11 @@ public class CartServiceimpl implements CartService {
 	public List<ProductDto> updateProductQuantity(Integer productId, Integer quantity, String key)
 			throws CartException, LoginException, ProductException {
 		// TODO Auto-generated method stub
-          Session currentCustomer = srepo.findByuuid(key);
-		
-		
-		if(currentCustomer==null)
-		{
-			throw new LoginException("You are not Authorized to Update the Product");
-		}
+		Optional<CurrentCustomerSession> currentCustomer  = srepo.findByKey(key);
+		   
+		   if(currentCustomer.isEmpty()) {
+				throw new LoginException("Please Login First ");
+			}
 		
           Optional<Product> optProduct =  prorepo.findById(productId) ;
 		
@@ -198,7 +196,7 @@ public class CartServiceimpl implements CartService {
 		}
 		
 		
-          Integer s = currentCustomer.getUserId();
+          Integer s = currentCustomer.get().getCustomerId();
 		
 		Optional<Customer> fin = curepo.findById(s);
 		
@@ -208,14 +206,14 @@ public class CartServiceimpl implements CartService {
 		
 
 		
-		Cart customerCart = cartrepo.getCart(or.getCustomerId());
+		Optional<Cart> customerCart = cartrepo.getCart(or.getCustomerId());
 		
 		
 	
 		
-		if(customerCart != null) {
+		if(customerCart.isPresent()) {
 			
-			List<ProductDto> list = customerCart.getProducts();
+			List<ProductDto> list = customerCart.get().getProducts();
 			
 			boolean flag = false;
 			
@@ -253,16 +251,14 @@ public class CartServiceimpl implements CartService {
 	@Override
 	public Cart removeAllproduct(String key) throws CartException, LoginException {
 		// TODO Auto-generated method stub
-        Session currentCustomer = srepo.findByuuid(key);
-		
-		if(currentCustomer==null)
-		{
-			throw new LoginException("You are not Authorized to delter");
-		}
-		
+		Optional<CurrentCustomerSession> currentCustomer  = srepo.findByKey(key);
+		   
+		   if(currentCustomer.isEmpty()) {
+				throw new LoginException("Please Login First ");
+			}
 		
 		
-        Integer s = currentCustomer.getUserId();
+        Integer s = currentCustomer.get().getCustomerId();
 		
 		Optional<Customer> fin = curepo.findById(s);
 		
@@ -272,11 +268,11 @@ public class CartServiceimpl implements CartService {
 		
 
 		
-		Cart customerCart = cartrepo.getCart(or.getCustomerId());
+		Optional<Cart> customerCart = cartrepo.getCart(or.getCustomerId());
 		
 	
 		
-		List<ProductDto> list = customerCart.getProducts();
+		List<ProductDto> list = customerCart.get().getProducts();
 		System.out.println("Hi");
 		if(list.size() > 0) {
 			
@@ -296,24 +292,23 @@ public class CartServiceimpl implements CartService {
 			
 		}
 		
-		customerCart.setProducts(new ArrayList<>());
+		customerCart.get().setProducts(new ArrayList<>());
 		
-		return cartrepo.save(customerCart) ;
+		return cartrepo.save(customerCart.get()) ;
 		
 	}
 
 	@Override
 	public List<ProductDto> viewAllProducts(String key) throws CartException, LoginException {
 		// TODO Auto-generated method stub
-		  Session ss  = srepo.findByuuid(key);
-		    
-		     if(ss==null)
-		     {
-		    	 throw new LoginException("You are not Authorized to Check Cart");
-		     }
+		Optional<CurrentCustomerSession> currentCustomer  = srepo.findByKey(key);
+		   
+		   if(currentCustomer.isEmpty()) {
+				throw new LoginException("Please Login First ");
+			}
 		     else
 		     {
-		    	 Integer s = ss.getUserId();
+		    	 Integer s = currentCustomer.get().getCustomerId();
 		 		
 		 		Optional<Customer> fin = curepo.findById(s);
 		 		
@@ -323,15 +318,15 @@ public class CartServiceimpl implements CartService {
 		 		
 
 		 		
-		 		Cart customerCart = cartrepo.getCart(or.getCustomerId());
+		 		Optional<Cart> customerCart = cartrepo.getCart(or.getCustomerId());
 		    	 
 
 		 		
-		 		if(customerCart == null) {
+		 		if(customerCart.isEmpty()) {
 		 			throw new CartException("You dont have anything in your cart");
 		 		}
 		 		
-		 		return customerCart.getProducts();
+		 		return customerCart.get().getProducts();
 		     }
 			
 		}

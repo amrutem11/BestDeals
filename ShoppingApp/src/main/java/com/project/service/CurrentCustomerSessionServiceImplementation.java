@@ -3,9 +3,9 @@ package com.project.service;
 
 import java.util.Optional;
 
+import com.project.model.CurrentCustomerSession;
 import com.project.exceptions.CurrentCustomerSessionException;
 import com.project.exceptions.CustomerException;
-import com.project.model.CurrentCustomerSession;
 import com.project.model.Customer;
 import com.project.repository.CurrentCustomerSessionRepo;
 import com.project.repository.CustomerRepo;

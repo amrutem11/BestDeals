@@ -1,10 +1,10 @@
 package com.project.service;
 
+import com.project.model.CurrentCustomerSession;
 import com.project.exceptions.CustomerException;
 import com.project.exceptions.LoginException;
 import com.project.exceptions.LogoutException;
 import com.project.exceptions.UserException;
-import com.project.model.CurrentCustomerSession;
 import com.project.model.Customer;
 import com.project.model.User;
 

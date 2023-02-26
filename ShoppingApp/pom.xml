@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>net.bytebuddy</groupId>
 			<artifactId>byte-buddy</artifactId>
-			<version>1.14.0</version>
 		</dependency>
 
 		<dependency>
