@@ -56,6 +56,7 @@ public class CustomerController {
             throws CustomerException, LoginException, UserException {
 
         String result = customerService.removeCustomer(key, user);
+
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
 
