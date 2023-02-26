@@ -1,7 +1,7 @@
 package com.project.exceptions;
 
 /**
- * @author tejas
+ * @author sheetalbisht
  *
  */
 public class CurrentCustomerSessionException extends Exception {
