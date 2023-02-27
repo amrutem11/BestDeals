@@ -48,13 +48,13 @@ public class OrderServiceImpl implements OrderService{
 			 
 			 Optional<Customer> ourCustomer = customerRepo.findById(customerId);
 			 
-			 Address addr = ourCustomer.get().getAddress();
+			// Address addr = ourCustomer.get().getAddress();
 			 
 			 
 			 Order currOrder = new Order();
 			 
 			 currOrder.setOrderDate(LocalDate.now());
-			 currOrder.setOrderAddress(new AddressDto(addr.getStreetNo(), addr.getBuildingName(), addr.getCity(), addr.getState(), addr.getCountry(), addr.getPincode()));
+			 //currOrder.setOrderAddress(new AddressDto(addr.getStreetNo(), addr.getBuildingName(), addr.getCity(), addr.getState(), addr.getCountry(), addr.getPincode()));
 			 
 			 currOrder.setCustomers(ourCustomer.get());
 			 currOrder.setStatus("Order confirmed");

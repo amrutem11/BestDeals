@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer addCustomer(Customer customer) throws CustomerException {
     	
     	Optional<Customer> existingCustomer= customerRepo.findByMobileNumber(customer.getMobileNumber());
-		if(existingCustomer.isEmpty()) 
+		if(!existingCustomer.isEmpty()) 
 			throw new CustomerException("Customer Already Registered with Mobile number");
 			
 		User newUser = new User(customer.getCustomerId(),customer.getMobileNumber(),customer.getPassword(),Role.Customer);

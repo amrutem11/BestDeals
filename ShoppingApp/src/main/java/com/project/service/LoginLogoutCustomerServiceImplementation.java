@@ -37,7 +37,7 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
 
     @Override
     public CurrentCustomerSession loginCustomer(User user) throws LoginException, CustomerException {
-        if ("Customer".equals(user.getRole())) {
+        //if ("Customer".equals(user.getRole())) {
 
             Optional<Customer> optional_customer = customerRepo.findByMobileNumber(user.getMobileNo());
 
@@ -76,10 +76,10 @@ public class LoginLogoutCustomerServiceImplementation implements LoginLogoutCust
                 throw new CustomerException("No Registered Customer Found With This User_Id : " + user.getMobileNo());
             }
 
-        } else {
-
-            throw new LoginException("Please, Select Customer as Role to Login !");
-        }
+//        } else {
+//
+//            throw new LoginException("Please, Select Customer as Role to Login !");
+//        }
 
     }
 
