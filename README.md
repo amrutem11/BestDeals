@@ -1,6 +1,6 @@
 # tangible-spiders-6376
 
-# BestBuy
+# BestDeals
 Online shopping application using SpringBoot,MySql,Hibernate,Spring-Web services and Spring Rest Services.
 
 [Java](https://github.com/topics/java) [Spring](https://github.com/topics/spring)           [SpringBoot](https://github.com/topics/spring-boot) 
